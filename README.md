@@ -1,8 +1,9 @@
 # ViCloD
 
-**Visualizing BCR repertoires and intraClonal Diversity**
+**VIsualizing BCR repertoires and intraCLonal Diversity**
 
-ViCloD is a website that allows to visualize the clonal and intraclonal diversity of BCR repertoires. We make the ViCloD pipeline available to users. This pipeline use two tools : [MobiLLe](https://github.com/julibinho/MobiLLe) to cluster the clonally-related sequences in BCR repertoires and [ClonalTree](https://github.com/julibinho/ClonalTree) to reconstructing the evolutionary history of a BCR lineage
+[ViCloD](http://www.lcqb.upmc.fr/viclod/Home) is a web server for visualizingz the clonality and intraclonal diversity of BCR repertoires. Here we make the ViCloD pipeline available, the stand-alone version. Users can run it locally and visualize their results online.
+This pipeline uses the following tools: [MobiLLe](https://github.com/julibinho/MobiLLe) to cluster the clonally-related sequences in BCR repertoires and [ClonalTree](https://github.com/julibinho/ClonalTree) to reconstructing the evolutionary history of a BCR lineages.
 
 **REFERENCE**
 Lucile Jeusset, Nika Abdollahi, Anne Langlois De Septenville, Marine Armand, Thibaud Verny, Clotilde Bavetti, Frédéric Davi and Juliana S. Bernardes. ViCloD, an interactive web tool for visualizing B cell repertoires and analyzing intra-clonal diversities in B-cell tumors. To be submitted.
@@ -13,7 +14,7 @@ Lucile Jeusset, Nika Abdollahi, Anne Langlois De Septenville, Marine Armand, Thi
   
 ## Inputs
 
-  * An AIR formatted file containing annotated IGH sequences.
+  * An AIRR formatted file containing annotated IGH sequences.
   * See [example input files](https://github.com/julibinho/ViCLoD/Examples/Input)
 
 ## Outputs
