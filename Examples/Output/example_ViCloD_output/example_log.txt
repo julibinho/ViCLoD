@@ -1,0 +1,10 @@
+Total sequences: 4999
+Threshold for eliminating infrequent reads: 0	number
+Sequence to be analysed: 4978	99.58% 
+Sequence filtered: 21	0.42% 
+Sequence unannotated for clustering: 17	0.34% 
+Sequence unannotated for tree analysis: 17	0.34% 
+Low quality sequence: 19	0.38% 
+Sequence with an abundance below 0 read(s): 0	0.0% 
+Sequence that combines several criteria: One;4	Two;2	Three;15	Four;0
+Sequence only unannotated for tree analysis: 0	0.0% 
