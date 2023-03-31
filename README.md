@@ -147,7 +147,7 @@ Lucile Jeusset, Nika Abdollahi, Anne Langlois De Septenville, Marine Armand, Thi
 
   For instance the following command can be run in the src/ folder:
   ```
-  $ run_ViCloD.sh ../Examples/Input/example.tsv ../Examples/Output 0 number
+  $ src/run_ViCloD.sh Examples/Input/example.tsv Examples/Output 0 number
   ```
                       
   Output files will be placed in a folder as such:
