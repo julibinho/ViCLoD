@@ -49,7 +49,7 @@ def get_sequence_informations(line, columns, seq_name) :
 	input seq_name:	str	name of the sequence
 	output sequence_info:	Dict()	contains all the information of a sequence, key=column name, value=information in the AIRR file for this column
 	"""
-	infos_type = {'sequence_id':'str', 'sequence':'nt', 'productive':'str', 'v_call':'IGHV', 'j_call':'IGHJ', 'sequence_alignment':'nt', 'germline_alignment':'nt', 'junction':'nt', 'np1':'nt', 'np2':'nt', 'cdr1':'nt', 'cdr2':'nt', 'cdr3':'nt', 'cdr3_aa':'AA', 'fwr1':'nt', 'fwr2':'nt', 'fwr3':'nt', 'fwr4':'nt', 'v_identity':'float', 'd_identity':'float', 'j_identity':'float', 'v_sequence_start':'int', 'v_sequence_end':'int', 'd_sequence_start':'int', 'd_sequence_end':'int', 'j_sequence_start':'int', 'j_sequence_end':'int', 'cdr1_start':'int', 'cdr1_end':'int', 'cdr2_start':'int', 'cdr2_end':'int', 'cdr3_start':'int', 'cdr3_end':'int', 'fwr1_start':'int', 'fwr1_end':'int', 'fwr2_start':'int', 'fwr2_end':'int', 'fwr3_start':'int', 'fwr3_end':'int', 'fwr4_start':'int', 'fwr4_end':'int', 'v_sequence_alignment':'nt', 'd_sequence_alignment':'nt', 'j_sequence_alignment':'nt', 'v_germline_alignment':'nt', 'd_germline_alignment':'nt', 'j_germline_alignment':'nt','v_sequence_alignment_aa':'AA', 'd_sequence_alignment_aa':'AA', 'j_sequence_alignment_aa':'AA', 'sequence_old_ids':'str'}
+	infos_type = {'sequence_id':'str', 'sequence':'nt', 'productive':'bool', 'v_call':'IGHV', 'j_call':'IGHJ', 'sequence_alignment':'nt', 'germline_alignment':'nt', 'junction':'nt', 'np1':'nt', 'np2':'nt', 'cdr1':'nt', 'cdr2':'nt', 'cdr3':'nt', 'cdr3_aa':'AA', 'fwr1':'nt', 'fwr2':'nt', 'fwr3':'nt', 'fwr4':'nt', 'v_identity':'float', 'd_identity':'float', 'j_identity':'float', 'v_sequence_start':'int', 'v_sequence_end':'int', 'd_sequence_start':'int', 'd_sequence_end':'int', 'j_sequence_start':'int', 'j_sequence_end':'int', 'cdr1_start':'int', 'cdr1_end':'int', 'cdr2_start':'int', 'cdr2_end':'int', 'cdr3_start':'int', 'cdr3_end':'int', 'fwr1_start':'int', 'fwr1_end':'int', 'fwr2_start':'int', 'fwr2_end':'int', 'fwr3_start':'int', 'fwr3_end':'int', 'fwr4_start':'int', 'fwr4_end':'int', 'v_sequence_alignment':'nt', 'd_sequence_alignment':'nt', 'j_sequence_alignment':'nt', 'v_germline_alignment':'nt', 'd_germline_alignment':'nt', 'j_germline_alignment':'nt','v_sequence_alignment_aa':'AA', 'd_sequence_alignment_aa':'AA', 'j_sequence_alignment_aa':'AA', 'sequence_old_ids':'str'}
 	sequence_info = {}
 	line_info = (line.split("\n")[0]).split("\t")
 	num_column = len(line_info)
@@ -110,15 +110,32 @@ def is_float(text) :
 	except ValueError:
 		text = ""
 	return text
-	
+
+# ------------------------------------------------------------------------------------
+
+def format_boolean_values(value) :
+	"""
+	Formats boolean values : T for true and F for false
+	input value:	bool	boolean value
+	output:	str	T or F depending on the value
+	"""
+	value = value.strip()
+	value = value.lower()
+	if(value == "t" or value == "true"):
+		return "T"
+	elif(value == "f" or value == "false"):
+		return "F"
+	else :
+		return ""
+
 # ------------------------------------------------------------------------------------
 
 def get_region_id(region_split, pattern) :
 	"""
 	Returns the first V or J gene annotation without the species annotation
 	input region_split:	list()	annotation of the gene contained in the AIR file (separation of this content in list by cutting at the level of the spaces)
-	pattern:	str	gene annotation type (IGHV, IFHJ)	
-	output:	str	V or J gene annotation
+	input pattern:		str	gene annotation type (IGHV, IFHJ)	
+	output:		str	V or J gene annotation
 	"""
 	for element in region_split :
 		if element[:4].upper()==pattern :
@@ -136,14 +153,18 @@ def check_type_of_info(info, pattern) :
 	"""
 	if (pattern == "AA") :
 		elements = set('ACDEFGHIKLMNPQRSTVYWX*-#.')
+		info = info.upper()
 	elif (pattern == "nt") :
 		elements = set('ACTGN-.')
+		info = info.lower()
 	elif (pattern == "int") :
 		return is_integer(info)
 	elif (pattern == "float") :
 		return is_float(info)
 	elif (pattern == "str") :
 		return info
+	elif (pattern == "bool") :
+		return format_boolean_values(info)
 	else :
 		return get_region_id(info.split(" "), pattern)
 	
@@ -458,14 +479,16 @@ def main():
 
 		columns = {'sequence_id':-1, 'sequence':-1, 'productive':-1, 'v_call':-1, 'j_call':-1, 'sequence_alignment':-1, 'germline_alignment':-1, 'junction':-1, 'np1':-1, 'np2':-1, 'cdr1':-1, 'cdr2':-1, 'cdr3':-1, 'cdr3_aa':-1, 'fwr1':-1, 'fwr2':-1, 'fwr3':-1, 'fwr4':-1, 'v_identity':-1, 'd_identity':-1, 'j_identity':-1, 'v_sequence_start':-1, 'v_sequence_end':-1, 'd_sequence_start':-1, 'd_sequence_end':-1, 'j_sequence_start':-1, 'j_sequence_end':-1, 'cdr1_start':-1, 'cdr1_end':-1, 'cdr2_start':-1, 'cdr2_end':-1, 'cdr3_start':-1, 'cdr3_end':-1, 'fwr1_start':-1, 'fwr1_end':-1, 'fwr2_start':-1, 'fwr2_end':-1, 'fwr3_start':-1, 'fwr3_end':-1, 'fwr4_start':-1, 'fwr4_end':-1, 'v_sequence_alignment':-1, 'd_sequence_alignment':-1, 'j_sequence_alignment':-1, 'v_germline_alignment':-1, 'd_germline_alignment':-1, 'j_germline_alignment':-1,'v_sequence_alignment_aa':-1, 'd_sequence_alignment_aa':-1, 'j_sequence_alignment_aa':-1, 'sequence_old_ids':-1}
 
-
 		airr_file = open(airr_file_name, 'r')
 		first_line = airr_file.readline()
 		airr_file.close()
 
 		missing_info, missing_columns = check_header(first_line,columns)
 		if missing_info == 'cluster' :
-			print("Your data can't be analyzed because this columns are missing : "+", ".join(missing_columns)+".")
+			if len(missing_info) > 1 :
+				print("Your data can't be analyzed because these columns are missing : "+", ".join(missing_columns)+".")
+			else :
+				print("Your data can't be analyzed because this column is missing : "+missing_columns[0]+".")
 		else :
 			create_output_files(analysis_name)
 			format_sequences_information(airr_file_name, columns, analysis_name, threshold, threshold_type, quality_filter)
