@@ -21,7 +21,6 @@ gene_allele=0
 
 #check if the input file exist
 if [[ ! -f "${input}" ]]; then
-  echo "${input}"
   echo "The file passed as input doesn't exist. Please provide a correct file."
   exit
 fi
