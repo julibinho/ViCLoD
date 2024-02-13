@@ -135,7 +135,7 @@ Lucile Jeusset, Nika Abdollahi, Anne Langlois De Septenville, Marine Armand, Thi
    The command line for launching the ViCloD is:
 
   ```
-  $ run_ViCloD.sh [AIRR_file] [output_path] [threshold_value] [thresold_type]
+  $ bash run_ViCloD.sh [AIRR_file] [output_path] [threshold_value] [thresold_type]
 
   ```
 ### required arguments 
